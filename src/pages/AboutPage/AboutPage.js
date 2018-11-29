@@ -21,34 +21,17 @@ const AboutPage = (props, context) => {
         `}
       </style>
       <div className="content-grid">
-        <h1 style={{ color: colorPrimary }}>About</h1>
+        <h1 style={{ color: colorPrimary }}>Sobre</h1>
         <div className="about-wrapper">
           <div className="about-content" style={{ color: textPrimary }}>
             <p>
-              I like <span className="highlight">JavaScript</span> and
-              everything web.
+              A linguagem verbal (linguagem falada) é a forma de expressão que acompanha a humanidade desde a pré-história. Ela, como a humanidade, passou por uma série de modificações e aperfeiçoamentos para chegar ao patamar que está atualmente. Diferente da pré-história, tempo em que a comunicação oral era feita principalmente por gemidos e grunhidos. Hoje, a fala é complexa e carrega muito mais informações do que uma simples mensagem de texto. Com ela, é possível extrair várias informações que um texto por si só não contém.
             </p>
             <p>
-              When my dev senses kick-in I build presumably{' '}
-              <span className="highlight"> awesome stuff</span>. I stay close to
-              the community and try to keep tabs with the pace at which the web
-              is evolving. I also like to{' '}
-              <span className="highlight">blog</span> what I learn.
+              A partir de um dialogo, é possível obter várias informações, tais como: variações no volume, variações no timbre, oscilações e falhas (gagueira). Esses dados depois de processados se tornam muito valiosos para diversas aplicações.
             </p>
             <p>
-              I built this site <span className="highlight">from scratch</span>.
-              By scratch, I mean <i>absolutely from scratch</i>{' '}
-              <span className="highlight">
-                without any UI library/framework
-              </span>{' '}
-              (except React though) and had so much fun along the way.
-            </p>
-            <p>
-              React-Redux, Node.js, Ruby on Rails, Java, Spring Boot, Docker and
-              AWS are the main tricks up my sleeve. I am also obsessed with making the web look pretty with SASS/CSS.
-            </p>
-            <p className="text-emoji" style={{ color: colorPrimary }}>
-              \ (•◡•) /
+              Tratando essas informações, pode-se detectar a emoção presente na voz do interlocutor. Uma empresa de <span className="highlight">call centers e telemarketings</span>, por exemplo, poderia se beneficiar do uso desses dados extraídos dos telefonemas realizados para traçar perfis e padrões de comportamento de seus clientes e assim otimizar o atendimento. Tendo em mãos o estado emocional do cliente do outro lado da linha, o operador consegue conduzir o telefonema de uma forma mais empática e coerente com o emocional do interlocutor.
             </p>
           </div>
         </div>

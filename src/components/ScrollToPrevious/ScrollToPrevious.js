@@ -21,7 +21,7 @@ class ScrollToPrevious extends Component {
       >
         <div className="arrow bounce" style={{ color: colorPrimary }}>
           <button className="fas fa-chevron-up fa-2x" href="#" />
-          <div className="scroll-text">Click Me</div>
+          <div className="scroll-text">Clique aqui!</div>
         </div>
       </div>
     );
