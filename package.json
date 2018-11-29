@@ -13,7 +13,7 @@
     "predeploy": "npm run build",
     "deploy": "aws s3 cp build/ s3://dineshpandiyan.com --recursive"
   },
-  "devDependencies": {
+  "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "autoprefixer": "7.1.6",
