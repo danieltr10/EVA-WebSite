@@ -86,7 +86,7 @@ export default [{
         Biblioteca em python que utiliza Numpy, SciPy e matplot para fornecer ferramentas de Machine Learning.
       </div>
       <div className='portfolio-item__icon'>
-        <i class="fas fa-flask"></i>
+        <i className="fas fa-flask"></i>
         <i className="fab fa-python"></i>
       </div>
       <div className='portfolio-item__links'>
@@ -99,13 +99,13 @@ export default [{
   render: (
     <div className='portfolio-item'>
       <div className='portfolio-item__title'>
-        Browser or Node
+        pyAudioAnalysis
       </div>
       <div className='portfolio-item__desc'>
-        Javascript library to check the runtime JS env
+        Uma biblioteca em python utilizada para extrair as features dos arquivos de áudio. Através dela, 34 features são extraídas.
       </div>
       <div className='portfolio-item__icon'>
-        <i class="fas fa-volume-up"></i>
+        <i className="fas fa-volume-up"></i>
         <i className="fab fa-python"></i>
       </div>
       <div className='portfolio-item__links'>

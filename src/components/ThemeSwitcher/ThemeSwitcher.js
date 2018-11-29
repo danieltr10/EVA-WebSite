@@ -16,7 +16,7 @@ class ThemeSwitcher extends Component {
 
     this.switchTheme = this.switchTheme.bind(this);
   }
-  
+
   getChildContext() {
     return {
       theme: this.state.theme,
@@ -52,9 +52,9 @@ class ThemeSwitcher extends Component {
         <style jsx="true">
         {`
           body {
-            background-color: ${theme.bgPrimary};
+            background-color: #FFFFFF;
             body, h1, h2, h3, h4, h5, h6, p, ol, ul {
-              color: ${theme.textPrimary}
+              color: #212121
             }
           }
         `}
