@@ -8,7 +8,7 @@ const Footer = (props, context) => {
   return (
     <footer>
       <div className="content-grid">
-        <div style={{ color: textPrimary }}>Grupo C-18 |<span>Bruno Andreetto |</span> <span > Bruno Andreetto |</span> <span > Daniel Rizzuto |</span> <span > Maurício Imaeda</span></div>
+        <div style={{ color: textPrimary }}>Grupo C-18 | <span > Bruno Andreetto |</span> <span > Daniel Rizzuto |</span> <span > Maurício Imaeda</span></div>
       </div>
     </footer>
   );
