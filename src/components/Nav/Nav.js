@@ -76,6 +76,12 @@ class Nav extends Component {
           >
             Tecnologias
           </div>
+          <div
+            className="menu__item"
+            onClick={(e) => this.scrollToPage('.challenge-page')}
+          >
+            Desafio
+          </div>
         </div>
       </nav>
     );
