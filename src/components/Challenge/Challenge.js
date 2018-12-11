@@ -4,6 +4,8 @@ import Emotions from './Emotions';
 
 import './style.scss';
 
+const Sound = require('react-sound').default;
+
 const GAME_STATES = {
   STAND_BY: 'STAND_BY',
   PLAYING_AUDIO: 'PLAYING_AUDIO',
@@ -11,7 +13,7 @@ const GAME_STATES = {
   FINISHED: 'FINISHED',
 };
 
-const getEmotionNumberFromPath = audioPath => {};
+const random = (max, min) => Math.floor(Math.random() * (max - min)) + min;
 
 class Challenge extends Component {
   constructor(props) {
@@ -19,9 +21,13 @@ class Challenge extends Component {
     this.getCurrentStep = this.getCurrentStep.bind(this);
     this.handleEmotionClick = this.handleEmotionClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
+    this.handleAudioFinishedPlaying = this.handleAudioFinishedPlaying.bind(
+      this
+    );
     this.state = {
       gameState: GAME_STATES.STAND_BY,
       currentAudioPath: null,
+      currentAudioEmotionNumber: null,
       playerScore: 0,
       computerScore: 0,
       computerGuessEmotionNumber: null,
@@ -34,9 +40,24 @@ class Challenge extends Component {
       this.state.gameState !== GAME_STATES.PLAYING_AUDIO &&
       nextState.gameState === GAME_STATES.PLAYING_AUDIO
     ) {
-      setTimeout(() => {
-        this.setState({ gameState: GAME_STATES.WAITING_FOR_RESPONSE });
-      }, 2000);
+      let audioPath = 'Actor_';
+      const actorNumber = random(1, 25);
+      const emotionNumber = random(1, 9);
+      const intensity = random(1, 3);
+      const phrase = random(1, 3);
+      const repetition = random(1, 3);
+      if (actorNumber <= 9) {
+        audioPath = `${audioPath}0${actorNumber}/03-01-0${emotionNumber}-0${intensity}-0${phrase}-0${repetition}-0${actorNumber}.wav`;
+      } else {
+        audioPath = `${audioPath}${actorNumber}/03-01-0${emotionNumber}-0${intensity}-0${phrase}-0${repetition}-${actorNumber}.wav`;
+      }
+
+      console.log(audioPath);
+
+      this.setState({
+        currentAudioPath: audioPath,
+        currentAudioEmotionNumber: emotionNumber,
+      });
     }
   }
 
@@ -52,6 +73,10 @@ class Challenge extends Component {
     return 'Você perdeu! Tente outra vez 😞';
   }
 
+  handleAudioFinishedPlaying() {
+    this.setState({ gameState: GAME_STATES.WAITING_FOR_RESPONSE });
+  }
+
   handleEmotionClick(emotionNumber) {
     this.setState({ selectedEmotionNumber: emotionNumber });
   }
@@ -61,12 +86,12 @@ class Challenge extends Component {
       const {
         selectedEmotionNumber,
         computerGuessEmotionNumber,
-        currentAudioPath,
+        currentAudioEmotionNumber,
         computerScore,
         playerScore,
       } = state;
       const playerGuessEmotionNumber = selectedEmotionNumber;
-      const correctEmotionNumber = getEmotionNumberFromPath(currentAudioPath);
+      const correctEmotionNumber = currentAudioEmotionNumber;
       const isComputerCorrect =
         correctEmotionNumber === computerGuessEmotionNumber;
       const isPlayerCorrect = correctEmotionNumber === playerGuessEmotionNumber;
@@ -97,6 +122,7 @@ class Challenge extends Component {
       playerScore,
       computerScore,
       selectedEmotionNumber,
+      currentAudioPath,
     } = this.state;
     const {
       STAND_BY,
@@ -121,9 +147,19 @@ class Challenge extends Component {
           </div>
         );
       case PLAYING_AUDIO:
-        return (
+        return currentAudioPath ? (
           <div className="placeholder-content">
             <h2 className="playing-placeholder"> Executando um áudio... </h2>
+            <Sound
+              url={`https://s3-sa-east-1.amazonaws.com/audios-tcc/${currentAudioPath}`}
+              playStatus={Sound.status.PLAYING}
+              playFromPosition={0 /* in milliseconds */}
+              onFinishedPlaying={this.handleAudioFinishedPlaying}
+            />
+          </div>
+        ) : (
+          <div className="placeholder-content">
+            <h2 className="playing-placeholder"> Carregando o áudio... </h2>
           </div>
         );
       case WAITING_FOR_RESPONSE:
