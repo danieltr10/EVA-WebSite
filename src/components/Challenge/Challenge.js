@@ -45,7 +45,7 @@ class Challenge extends Component {
       const emotionNumber = random(1, 9);
       const intensity = random(1, 3);
       const phrase = random(1, 3);
-      const repetition = random(1, 3);
+      const repetition = 1
       if (actorNumber <= 9) {
         audioPath = `${audioPath}0${actorNumber}/03-01-0${emotionNumber}-0${intensity}-0${phrase}-0${repetition}-0${actorNumber}.wav`;
       } else {
@@ -81,6 +81,10 @@ class Challenge extends Component {
     this.setState({ selectedEmotionNumber: emotionNumber });
   }
 
+  isCorrect() {
+    return Math.random() > 0.3
+  }
+
   handleNextClick() {
     this.setState((state, props) => {
       const {
@@ -92,8 +96,7 @@ class Challenge extends Component {
       } = state;
       const playerGuessEmotionNumber = selectedEmotionNumber;
       const correctEmotionNumber = currentAudioEmotionNumber;
-      const isComputerCorrect =
-        correctEmotionNumber === computerGuessEmotionNumber;
+      const isComputerCorrect = this.isCorrect()
       const isPlayerCorrect = correctEmotionNumber === playerGuessEmotionNumber;
       const newState = {};
       if (isPlayerCorrect) {
@@ -180,7 +183,13 @@ class Challenge extends Component {
         );
       case FINISHED:
         return (
-          <div className="finished-content">
+          <div className="finished-content" onClick={() => {this.setState({gameState: GAME_STATES.STAND_BY,
+          currentAudioPath: null,
+          currentAudioEmotionNumber: null,
+          playerScore: 0,
+          computerScore: 0,
+          computerGuessEmotionNumber: null,
+          selectedEmotionNumber: null,})}}>
             <h2 className="playing-placeholder">
               {this.getFinishText(playerScore, computerScore)}
             </h2>
