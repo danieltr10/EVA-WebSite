@@ -32,6 +32,7 @@ class Challenge extends Component {
       computerScore: 0,
       computerGuessEmotionNumber: null,
       selectedEmotionNumber: null,
+      askComputer: false
     };
   }
 
@@ -52,14 +53,29 @@ class Challenge extends Component {
         audioPath = `${audioPath}${actorNumber}/03-01-0${emotionNumber}-0${intensity}-0${phrase}-0${repetition}-${actorNumber}.wav`;
       }
 
-      console.log(audioPath);
-
       this.setState({
         currentAudioPath: audioPath,
         currentAudioEmotionNumber: emotionNumber,
       });
     }
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {askComputer, currentAudioEmotionNumber, computerScore, currentAudioPath} = this.state
+
+    const correctEmotionNumber = currentAudioEmotionNumber;
+    console.log(correctEmotionNumber)
+    if (!prevState.askComputer && askComputer) {
+      this.getEmotionGuess().then(response => {
+        const isComputerCorrect = true ||
+          correctEmotionNumber === response.emotion;
+        console.log(isComputerCorrect);
+        const newComputerScore = isComputerCorrect ? computerScore + 1 : computerScore
+        this.setState({ askComputer: false, computerScore: newComputerScore, gameState: newComputerScore === 5 ?  GAME_STATES.FINISHED : this.state.gameState})})
+    }
+  }
+
+  componentWillReceive
 
   getFinishText(playerScore, computerScore) {
     if (playerScore > computerScore) {
@@ -74,37 +90,52 @@ class Challenge extends Component {
   }
 
   handleAudioFinishedPlaying() {
-    this.setState({ gameState: GAME_STATES.WAITING_FOR_RESPONSE });
+    this.setState({ gameState: GAME_STATES.WAITING_FOR_RESPONSE, askComputer: true });
   }
 
   handleEmotionClick(emotionNumber) {
-    this.setState({ selectedEmotionNumber: emotionNumber });
+    this.setState({ selectedEmotionNumber: emotionNumber + 1 });
+  }
+
+  getEmotionGuess() {
+    this.setState({isLoading: true})
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.setState({isLoading: false})
+        resolve({emotion: 2})
+      }, 3000)
+    })
   }
 
   handleNextClick() {
     this.setState((state, props) => {
       const {
         selectedEmotionNumber,
-        computerGuessEmotionNumber,
         currentAudioEmotionNumber,
         computerScore,
         playerScore,
       } = state;
+      // const response = await fetch('https://mywebsite.com/endpoint/', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     firstParam: 'yourValue',
+      //     secondParam: 'yourOtherValue',
+      //   })
+      // })
+
       const playerGuessEmotionNumber = selectedEmotionNumber;
       const correctEmotionNumber = currentAudioEmotionNumber;
-      const isComputerCorrect =
-        correctEmotionNumber === computerGuessEmotionNumber;
       const isPlayerCorrect = correctEmotionNumber === playerGuessEmotionNumber;
       const newState = {};
       if (isPlayerCorrect) {
         newState.playerScore = playerScore + 1;
       }
 
-      if (isComputerCorrect) {
-        newState.computerScore = computerScore + 1;
-      }
-
-      if (newState.computerScore === 5 || newState.playerScore === 5) {
+      if (newState.playerScore === 5) {
         newState.gameState = GAME_STATES.FINISHED;
       } else {
         newState.gameState = GAME_STATES.PLAYING_AUDIO;
@@ -168,7 +199,7 @@ class Challenge extends Component {
             <h2 className="guess-placeholder">Qual é o seu palpite?</h2>
             <Emotions
               handleEmotionClick={this.handleEmotionClick}
-              selectedEmotionNumber={selectedEmotionNumber}
+              selectedEmotionNumber={selectedEmotionNumber-1}
             />
 
             {selectedEmotionNumber !== null && (
