@@ -45,7 +45,7 @@ class Challenge extends Component {
       const emotionNumber = random(1, 9);
       const intensity = random(1, 3);
       const phrase = random(1, 3);
-      const repetition = 1
+      const repetition = random(1, 3);
       if (actorNumber <= 9) {
         audioPath = `${audioPath}0${actorNumber}/03-01-0${emotionNumber}-0${intensity}-0${phrase}-0${repetition}-0${actorNumber}.wav`;
       } else {
@@ -82,7 +82,7 @@ class Challenge extends Component {
   }
 
   isCorrect() {
-    return Math.random() > 0.3
+    return Math.random() > 0.4
   }
 
   handleNextClick() {
