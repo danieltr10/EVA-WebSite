@@ -145,7 +145,7 @@ class Challenge extends Component {
         return newState;
       })
 
-    }, 1000)
+    }, 2000)
   }
 
   getCurrentStep() {
@@ -208,7 +208,7 @@ class Challenge extends Component {
               shouldShowCorrection={shouldShowCorrection}
             />
 
-            {selectedEmotionNumber !== null && (
+            {selectedEmotionNumber !== null && !shouldShowCorrection && (
               <div className="next-button" onClick={this.handleNextClick}>
                 Próxima
               </div>
