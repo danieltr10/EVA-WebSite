@@ -36,7 +36,7 @@ const PortfolioPage = (props, context) => {
           ))}
         </div>
       </div>
-      <ScrollToPrevious pageSelector=".about-page" />
+      // <ScrollToPrevious pageSelector=".about-page" />
     </div>
   );
 };
