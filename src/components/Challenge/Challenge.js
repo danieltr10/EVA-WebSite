@@ -134,7 +134,7 @@ class Challenge extends Component {
         const newState = {}
         newState.shouldShowCorrection = false
 
-        if (newState.computerScore === 5 || newState.playerScore === 5) {
+        if (state.computerScore === 5 || state.playerScore === 5) {
           newState.gameState = GAME_STATES.FINISHED;
         } else {
           newState.gameState = GAME_STATES.PLAYING_AUDIO;
