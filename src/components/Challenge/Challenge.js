@@ -200,7 +200,7 @@ class Challenge extends Component {
       case WAITING_FOR_RESPONSE:
         return (
           <div className="emotions-content">
-            <h2 className="guess-placeholder">{`Qual é o seu palpite? ${previousAudioEmotionNumber && ('(resposta anterior = ' + EMOTIONS[previousAudioEmotionNumber-1] + ')') || ''}`}</h2>
+            <h2 className="guess-placeholder">{`Qual é o seu palpite?`}</h2>
             <Emotions
               handleEmotionClick={this.handleEmotionClick}
               selectedEmotionNumber={selectedEmotionNumber}
