@@ -145,7 +145,7 @@ class Challenge extends Component {
         return newState;
       })
 
-    }, 3000)
+    }, 1000)
   }
 
   getCurrentStep() {
