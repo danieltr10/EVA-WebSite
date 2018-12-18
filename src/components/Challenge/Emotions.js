@@ -24,10 +24,10 @@ class Emotions extends Component {
       <div
         className={`emotion-container ${
           EMOTIONS[this.props.selectedEmotionNumber - 1] === emotion
-            ? 'selected'
+            ? `selected ${this.props.shouldShowCorrection && this.props.selectedEmotionNumber !== this.props.correction && 'wrong'}`
             : ''
         }  ${
-          EMOTIONS[this.props.previousEmotionNumber - 1] === emotion
+          EMOTIONS[this.props.correction - 1] === emotion && this.props.shouldShowCorrection
             ? 'selected-previous'
             : ''
         }`}

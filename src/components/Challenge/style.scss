@@ -78,6 +78,10 @@
     &.selected-previous {
       background-color: rgba(200, 247, 197, 1);
     }
+
+    &.wrong {
+      background-color: rgba(242, 38, 19, 1);
+    }
   }
 
   .next-button {

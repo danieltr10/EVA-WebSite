@@ -13,6 +13,18 @@ const GAME_STATES = {
   FINISHED: 'FINISHED',
 };
 
+
+const EMOTIONS = [
+  'Neutro',
+  'Calma',
+  'Felicidade',
+  'Tristeza',
+  'Raiva',
+  'Medo',
+  'Nojo',
+  'Surpresa',
+];
+
 const random = (max, min) => Math.floor(Math.random() * (max - min)) + min;
 
 class Challenge extends Component {
@@ -88,19 +100,23 @@ class Challenge extends Component {
   }
 
   handleNextClick() {
+    const {
+      selectedEmotionNumber,
+      currentAudioEmotionNumber,
+      computerScore,
+      playerScore,
+    } = this.state;
+
     this.setState((state, props) => {
-      const {
-        selectedEmotionNumber,
-        computerGuessEmotionNumber,
-        currentAudioEmotionNumber,
-        computerScore,
-        playerScore,
-      } = state;
       const playerGuessEmotionNumber = selectedEmotionNumber;
       const correctEmotionNumber = currentAudioEmotionNumber;
       const isComputerCorrect = this.isCorrect()
       const isPlayerCorrect = correctEmotionNumber === playerGuessEmotionNumber;
       const newState = {};
+
+      newState.answer = correctEmotionNumber;
+      newState.shouldShowCorrection = true
+
       if (isPlayerCorrect) {
         newState.playerScore = playerScore + 1;
       }
@@ -109,16 +125,27 @@ class Challenge extends Component {
         newState.computerScore = computerScore + 1;
       }
 
-      if (newState.computerScore === 5 || newState.playerScore === 5) {
-        newState.gameState = GAME_STATES.FINISHED;
-      } else {
-        newState.gameState = GAME_STATES.PLAYING_AUDIO;
-      }
-
-      newState.selectedEmotionNumber = null;
-
       return newState;
     });
+
+    setTimeout(() => {
+      this.setState((state, props) =>
+      {
+        const newState = {}
+        newState.shouldShowCorrection = false
+
+        if (newState.computerScore === 5 || newState.playerScore === 5) {
+          newState.gameState = GAME_STATES.FINISHED;
+        } else {
+          newState.gameState = GAME_STATES.PLAYING_AUDIO;
+        }
+
+        newState.selectedEmotionNumber = null;
+
+        return newState;
+      })
+
+    }, 3000)
   }
 
   getCurrentStep() {
@@ -129,6 +156,8 @@ class Challenge extends Component {
       selectedEmotionNumber,
       previousAudioEmotionNumber,
       currentAudioPath,
+      currentAudioEmotionNumber,
+      shouldShowCorrection
     } = this.state;
     const {
       STAND_BY,
@@ -171,11 +200,12 @@ class Challenge extends Component {
       case WAITING_FOR_RESPONSE:
         return (
           <div className="emotions-content">
-            <h2 className="guess-placeholder">Qual é o seu palpite?</h2>
+            <h2 className="guess-placeholder">{`Qual é o seu palpite? ${previousAudioEmotionNumber && ('(resposta anterior = ' + EMOTIONS[previousAudioEmotionNumber-1] + ')') || ''}`}</h2>
             <Emotions
               handleEmotionClick={this.handleEmotionClick}
               selectedEmotionNumber={selectedEmotionNumber}
-              previousEmotionNumber={previousAudioEmotionNumber}
+              correction={currentAudioEmotionNumber}
+              shouldShowCorrection={shouldShowCorrection}
             />
 
             {selectedEmotionNumber !== null && (
