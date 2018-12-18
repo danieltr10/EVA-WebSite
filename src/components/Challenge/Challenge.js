@@ -96,7 +96,7 @@ class Challenge extends Component {
   }
 
   isCorrect() {
-    return Math.random() > 0.4
+    return Math.random() > 0.5
   }
 
   handleNextClick() {
