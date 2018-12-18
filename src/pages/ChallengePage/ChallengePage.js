@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScrollToPrevious from '@components/ScrollToPrevious';
 import Challenge from '@components/Challenge';
 
 import './style.scss';
@@ -18,7 +17,6 @@ const ChallengePage = (props, context) => {
           <Challenge />
         </div>
       </div>
-      <ScrollToPrevious pageSelector=".challenge-page" />
     </div>
   );
 };
