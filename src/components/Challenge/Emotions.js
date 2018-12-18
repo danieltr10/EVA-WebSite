@@ -23,8 +23,12 @@ class Emotions extends Component {
     return (
       <div
         className={`emotion-container ${
-          EMOTIONS[this.props.selectedEmotionNumber] === emotion
+          EMOTIONS[this.props.selectedEmotionNumber - 1] === emotion
             ? 'selected'
+            : ''
+        }  ${
+          EMOTIONS[this.props.previousEmotionNumber - 1] === emotion
+            ? 'selected-previous'
             : ''
         }`}
         key={emotion}

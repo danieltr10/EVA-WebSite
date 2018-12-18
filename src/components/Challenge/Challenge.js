@@ -27,6 +27,7 @@ class Challenge extends Component {
     this.state = {
       gameState: GAME_STATES.STAND_BY,
       currentAudioPath: null,
+      previousAudioEmotionNumber: null,
       currentAudioEmotionNumber: null,
       playerScore: 0,
       computerScore: 0,
@@ -43,7 +44,7 @@ class Challenge extends Component {
       let audioPath = 'Actor_';
       const actorNumber = random(1, 25);
       const emotionNumber = random(1, 9);
-      const intensity = random(1, 3);
+      const intensity = random(1, 2);
       const phrase = random(1, 3);
       const repetition = random(1, 3);
       if (actorNumber <= 9) {
@@ -55,6 +56,7 @@ class Challenge extends Component {
       console.log(audioPath);
 
       this.setState({
+        previousAudioEmotionNumber: this.state.currentAudioEmotionNumber,
         currentAudioPath: audioPath,
         currentAudioEmotionNumber: emotionNumber,
       });
@@ -78,7 +80,7 @@ class Challenge extends Component {
   }
 
   handleEmotionClick(emotionNumber) {
-    this.setState({ selectedEmotionNumber: emotionNumber });
+    this.setState({ selectedEmotionNumber: emotionNumber + 1});
   }
 
   isCorrect() {
@@ -125,6 +127,7 @@ class Challenge extends Component {
       playerScore,
       computerScore,
       selectedEmotionNumber,
+      previousAudioEmotionNumber,
       currentAudioPath,
     } = this.state;
     const {
@@ -172,6 +175,7 @@ class Challenge extends Component {
             <Emotions
               handleEmotionClick={this.handleEmotionClick}
               selectedEmotionNumber={selectedEmotionNumber}
+              previousEmotionNumber={previousAudioEmotionNumber}
             />
 
             {selectedEmotionNumber !== null && (
@@ -189,6 +193,7 @@ class Challenge extends Component {
           playerScore: 0,
           computerScore: 0,
           computerGuessEmotionNumber: null,
+          previousAudioEmotionNumber: null,
           selectedEmotionNumber: null,})}}>
             <h2 className="playing-placeholder">
               {this.getFinishText(playerScore, computerScore)}

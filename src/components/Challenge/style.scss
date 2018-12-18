@@ -72,7 +72,11 @@
     cursor: pointer;
 
     &.selected {
-      background-color: #3dc0b0
+      background-color: #3dc0b0;
+    }
+
+    &.selected-previous {
+      background-color: rgba(200, 247, 197, 1);
     }
   }
 
